@@ -54,3 +54,47 @@ var Day1_1 = Puzzle{
 		return strconv.FormatInt(int64(sum), 10)
 	},
 }
+
+var Day1_2 = Puzzle{
+	Filepath: "inputs/day01.txt",
+	Solve: func(input string) string {
+		lines := strings.Split(input, "\n")
+
+		var left []int = make([]int, 0, len(lines))
+		var occurrences [100_000]int
+
+		for iLine, line := range lines[:len(lines)-1] {
+			leftLength := 0
+			for _, char := range lines[iLine] {
+				if char == ' ' {
+					break
+				}
+				leftLength += 1
+			}
+			leftNum, err := strconv.Atoi(line[0:leftLength])
+			if err != nil {
+				panic(err)
+			}
+
+			left = append(left, leftNum)
+			for iChar, char := range line[leftLength:] {
+				if char != ' ' {
+					rightNum, err := strconv.Atoi(lines[iLine][leftLength+iChar:])
+					if err != nil {
+						fmt.Println(leftNum)
+						fmt.Println(leftLength)
+						fmt.Println(line)
+						panic(err)
+					}
+					occurrences[rightNum] += 1
+					break
+				}
+			}
+		}
+		var score int = 0
+		for _, num := range left {
+			score += occurrences[num] * num
+		}
+		return strconv.FormatInt(int64(score), 10)
+	},
+}
