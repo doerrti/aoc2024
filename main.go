@@ -5,6 +5,6 @@ import (
 )
 
 func main() {
-	aoc.Day2_1.LoadInput()
-	println(aoc.Day2_1.Solve(aoc.Day2_1.Input))
+	aoc.Day2_2.LoadInput()
+	println(aoc.Day2_2.Solve(aoc.Day2_2.Input))
 }
